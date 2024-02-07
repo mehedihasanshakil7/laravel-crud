@@ -10,15 +10,15 @@ class EmployeeController extends Controller
     public function index(Request $request) {
         // fetch employees data from employees table
         if( $request->has('search')   ){
-            $books = Employee::where('name', 'like', '%'.$request->search.'%' )
+            $employee = Employee::where('name', 'like', '%'.$request->search.'%' )
                 ->orWhere('job_title', 'like', '%'.$request->search.'%' )
                 ->paginate(10);
         } else {
-            $books = Employee::paginate(10);
+            $employee = Employee::paginate(10);
         }
         // pass employees data to view
         return view('employees.index')
-            ->with('employees', $books);
+            ->with('employees', $employee);
     }
     public function show($employeeId) {
         $employee = Employee::find($employeeId);
